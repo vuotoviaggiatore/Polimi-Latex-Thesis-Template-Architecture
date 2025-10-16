@@ -1,0 +1,151 @@
+% PHD thesis template for POLIMI 中英文版本 (2024) by Siqi MIAO （缪思齐）
+% 确保使用XeLaTeX，BibTeX编译。
+%chapter文件名不能有空格，有空格无法出bib.bbl
+%在该模板的基础上完成：https://github.com/galgalesh/masterproef-template
+%第一页封皮需要单独加上。
+%适合建筑学论文（不支持代码）。
+%该模板非常干净简洁，不建议做任何删减。
+
+\documentclass[12pt,a4paper,openany,italian,chinese,english]{extbook}
+\usepackage[a4paper,includeheadfoot,margin=2.50cm]{geometry}
+\usepackage{xeCJK}
+\setCJKmainfont{SimSun} % 设置中文主字体为宋体
+\usepackage{fontspec} %可以有外加字体
+\setmainfont{Arial} %设置论文字体
+
+
+
+\raggedbottom
+\renewcommand{\baselinestretch}{1.2}  % 调整行间距
+\usepackage{amsmath}%丰富的数学符号和公式排版功能
+\usepackage{amsfonts} 
+\usepackage[hyphens]{url} % 允许URL换行，可以在URL中自动添加连字符。
+\usepackage{graphicx} % 支持图像插入。
+\graphicspath{{Images/}} % 设置图像的默认搜索路径。
+\usepackage{pdfpages} % 允许包含整个或部分PDF页面。
+\usepackage{pdflscape}
+\usepackage{svg} 
+\usepackage{enumitem} % 提供更多控制列表（项目符号、编号等）布局的选项。
+\usepackage{float} % 提高浮动对象（如图表和图片）的定位控制。
+\usepackage{caption} % 提供更多自定义图表标题样式的选项。
+\usepackage{subcaption} % 支持子图表和子标题。
+\captionsetup[table]{labelfont=bf}%所有caption加粗
+\captionsetup[figure]{labelfont=bf}
+\usepackage{rotating} % 导入旋转包
+%目录
+\usepackage[toc,page]{appendix} % 改进附录的管理，包括在目录中的显示。
+\usepackage{tocloft} % 提供自定义目录、图表列表和表格列表外观的选项。
+\setlength{\cftsecindent}{0pt} % 设置章节在目录中的缩进为0。
+\setlength{\cftsubsecindent}{0pt} % 设置小节在目录中的缩进为0。
+\setlength{\cftfigindent}{0pt} % 设置图表列表中的图表缩进为0。
+\setlength{\cfttabindent}{0pt} % 设置表格列表中的表格缩进为0。
+
+\usepackage{parskip} % 在段落之间添加空间，并取消首行缩进。
+\usepackage{lipsum} % 生成随机的Lorem Ipsum文本。
+\usepackage{siunitx}%可以在文档中使用\num{}命令了。
+
+
+\urlstyle{same} % URL使用文档的主字体样式。
+
+\usepackage{color} % 支持颜色。
+\definecolor{chaptergrey}{rgb}{0.447, 0.561, 0.647} % 章节数字POLIMI标准色
+\usepackage[explicit, pagestyles]{titlesec} % 自定义章节标题和页样式。
+\titleformat{\chapter}[display]{\bfseries}{\color{chaptergrey}\fontfamily{pbk}\fontsize{80pt}{100pt}\selectfont\thechapter}{0pt}{\Huge #1}
+\titlespacing*{\chapter}{0pt}{-80pt}{30pt} % 自定义章节标题的外观。
+
+\newpagestyle{fancy}{} % 定义一个新的页面样式。
+\pagestyle{fancy} % 应用定义的页面样式。
+\newpagestyle{numberless}{} % 定义一个无页码的页面样式。
+
+%引用
+\PassOptionsToPackage{hyphens}{url} % 向url包传递选项，允许URL自动换行。
+\usepackage{hyperref} %交叉引用
+%\usepackage{url} % 更好地处理和显示URL。
+\usepackage{cleveref}
+\usepackage{csquotes}%\blockquote引用
+\crefname{figure}{Figure}{Figures}
+\crefname{table}{Table}{Tables}
+\usepackage[super]{natbib} % 使用数字风格的文献引用。
+\setcitestyle{super,open={},close={}} % 设置引用为上角标，且不使用括号
+\bibliographystyle{abbrv} % 文献引用样式设置。
+\usepackage[nottoc]{tocbibind} % 将目录、图表列表、表格列表等加入到目录中，但不包括目录本身。
+
+\usepackage{tikz} % 提供创建图形（如绘图、图表、图形）的强大工具。
+
+%表格
+\usepackage{tabularx}
+\usepackage{caption}  % 导入 caption 宏包
+\captionsetup[table]{justification=raggedright, singlelinecheck=false} % 左对齐表格标题
+\usepackage{multirow} % 为了使用 multirow 命令
+%%%%
+\usepackage{booktabs} % 提供美观的表格线命令（顶线、底线等）。
+\usepackage{threeparttable}
+\usepackage{array} % 提供额外的表格选项，比如列格式定义。
+\renewcommand{\arraystretch}{0.85} % 将行间距设置为默认的0.85倍
+\usepackage{longtable}
+\usepackage{threeparttablex}%longtable上可以加注释
+\AtBeginEnvironment{table}{\footnotesize}%表格字号
+\AtBeginEnvironment{tabular}{\footnotesize}
+\AtBeginEnvironment{tabularx}{\footnotesize}
+\AtBeginEnvironment{threeparttablex}{\footnotesize}
+\AtBeginEnvironment{threeparttable}{\footnotesize}
+\AtBeginEnvironment{booktabs}{\footnotesize}
+\AtBeginEnvironment{longtable}{\footnotesize}
+
+\usepackage{ragged2e} % 提供更灵活的对齐方式，如两端对齐。
+\newcolumntype{L}[1]{>{\raggedright\let\newline\\arraybackslash\hspace{0pt}}m{#1}} % 定义一个新的列类型，用于左对齐文本。
+\newcolumntype{C}[1]{>{\centering\let\newline\\arraybackslash\hspace{0pt}}m{#1}} % 定义一个新的列类型，用于居中对齐文本。
+\newcolumntype{R}[1]{>{\raggedleft\let\newline\\arraybackslash\hspace{0pt}}m{#1}} % 定义一个新的列类型，用于右对齐文本。
+
+
+
+%术语表
+%\usepackage[toc,acronym]{glossaries} % 用于创建术语表和缩写表。
+\usepackage[nomain,acronym]{glossaries}%只使用\newacronym定义的缩写
+%\usepackage[acronym, shortcuts]{glossaries}
+\makeglossaries % 初始化术语表处理。
+\loadglsentries{FrontBackmatter/definitions.tex} % 引入术语定义文件
+
+\input{personal_data} % 引入个人信息文件，通常包含论文标题、作者等信息。
+
+\begin{document}
+%前言
+	\frontmatter % 文档前言部分，页码使用罗马数字。
+	\pagestyle{empty} % 前言部分页面样式为空（不显示页眉页脚）。
+
+%	\cleardoublepage\include{FrontBackmatter/Publication}
+%	\cleardoublepage\include{FrontBackmatter/Acknowledgments}
+	\cleardoublepage\include{FrontBackmatter/Abstract}
+%	\cleardoublepage\include{FrontBackmatter/Preface}
+	
+	\tableofcontents\newpage % 生成目录并开始新一页。
+	\listoffigures\newpage % 生成插图目录并开始新一页。
+	\listoftables\newpage % 生成表格目录并开始新一页。
+	\printglossaries\newpage
+	\mainmatter % 文档主体部分，页码使用阿拉伯数字。
+	\pagestyle{fancy} % 主体部分使用自定义的页眉页脚样式。
+	
+% 引入更多章节文件。
+%	\part{Introduction}
+%	\include{chapters/chapter1} 
+%	\part{Theory and Research Context}
+%	\include{chapters/chapter2} 
+%	\include{chapters/chapter3} 
+%	\include{chapters/chapter4}
+%	\part{Assessment}
+%	\include{chapters/chapter5}
+%	\include{chapters/chapter6}
+	\include{chapters/chapter7}
+%	\include{chapters/chapter8}
+%	\part{Conclusion}
+	\include{chapters/chapter9}
+	\include{chapters/chapter10}
+%%%附录	
+	\include{chapters/bibliography} % 参考文献。
+	\pagestyle{numberless} % 附录部分使用无页码样式。
+	\pagestyle{empty} % 选择一个页面样式。
+%	\include{chapters/appendix} % 附录。
+%%	\include{chapters/all_chapters_tables}
+	
+%%	
+\end{document} % 文档结束。
